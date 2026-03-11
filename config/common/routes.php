@@ -35,15 +35,17 @@ return [
 
             // Business Category routes (protected)
             Group::create('/business-categories')
-                ->middleware(AuthMiddleware::class)
                 ->routes(
                     Route::get('')
+                        ->middleware(AuthMiddleware::class)
                         ->action(ListAction::class)
                         ->name('business-category/list'),
                     Route::methods([Method::GET, Method::POST], '/{id}')
+                        ->middleware(AuthMiddleware::class)
                         ->action(EditAction::class)
                         ->name('business-category/edit'),
                     Route::post('/{id}/delete')
+                        ->middleware(AuthMiddleware::class)
                         ->action(DeleteAction::class)
                         ->name('business-category/delete'),
                 ),
