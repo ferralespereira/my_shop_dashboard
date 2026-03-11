@@ -61,6 +61,11 @@ $this->beginPage()
                     Business Categories
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $urlGenerator->generate('about-us') ?>">
+                    About Us
+                </a>
+            </li>
         </ul>
 
         <!-- Logout -->

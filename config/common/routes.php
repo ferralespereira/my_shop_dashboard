@@ -22,6 +22,11 @@ return [
                 ->action(Web\HomePage\Action::class)
                 ->name('home'),
 
+            // About Us
+            Route::get('/about-us')
+                ->action(Web\AboutUs\Action::class)
+                ->name('about-us'),
+
             // Auth routes (public)
             Route::methods([Method::GET, Method::POST], '/login')
                 ->action(LoginAction::class)
