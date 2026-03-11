@@ -34,12 +34,16 @@ $this->beginPage()
     <link rel="icon" href="<?= $aliases->get('@baseUrl/favicon.svg') ?>" type="image/svg+xml">
     <title><?= Html::encode($this->getTitle()) ?></title>
     <?php $this->head() ?>
+
+    <!-- importing bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 <?php $this->beginBody() ?>
 
 <div class="header">
-    <a href="https://www.yiiframework.com/" target="_blank" rel="noopener">
+    <a href="<?= $urlGenerator->generate('home') ?>" class="header-logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 216.495">
             <style>.st0 {
                     fill: #40b3d8
@@ -121,6 +125,10 @@ $this->beginPage()
         </a>
     </div>
 </div>
+
+
+<!-- importing bootstrap js bundle from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php $this->endBody() ?>
 </body>
