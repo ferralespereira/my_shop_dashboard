@@ -23,7 +23,7 @@ use Yiisoft\Router\UrlGeneratorInterface;
                         <?= Html::a(
                             'Create Category',
                             $urlGenerator->generate('business-category/edit', ['id' => 'new']),
-                            ['class' => 'btn btn-primary']
+                            ['class' => 'btn btn-primary text-white']
                         ) ?>
                     </div>
 

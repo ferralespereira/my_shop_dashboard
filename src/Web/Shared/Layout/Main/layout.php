@@ -44,7 +44,7 @@ $this->beginPage()
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
     <!-- Logo -->
-    <a class="navbar-brand" href="<?= $urlGenerator->generate('home') ?>">
+    <a class="navbar-brand" href="<?= $urlGenerator->generate('business-category/list') ?>">
         <?= Html::encode($applicationParams->name) ?>
     </a>
 
