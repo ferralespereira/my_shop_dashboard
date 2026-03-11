@@ -14,5 +14,6 @@ final class Form extends FormModel
     #[Length(min: 1, max: 255)]
     public ?string $name = null;
 
+    #[Length(min: 0, max: 1000)]
     public ?string $description = null;
 }
