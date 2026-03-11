@@ -41,95 +41,9 @@ composer install
 ```dotenv
 APP_ENV=dev
 APP_DEBUG=1
-DB_DSN=pgsql:host=127.0.0.1;port=5432;dbname=<?= $urlGenerator->generate('business-category/list') ?>database_name
+DB_DSN=pgsql:host=127.0.0.1;port=5432;dbname=database_name
 DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
-```
-
-3. Start the app:
-
-```bash
-composer serve
-```
-
-4. Open in browser:
-
-- `http://127.0.0.1:8080`
-
-## Docker Setup
-
-1. Build and start development containers:
-
-```bash
-make build
-make up
-```
-
-2. Open in browser:
-
-- `http://localhost:${DEV_PORT}` (default from `docker/.env` is `80`)
-
-3. Stop containers:
-
-```bash
-make down
-```
-
-Useful Docker Make targets:
-
-- `make shell` Enter app container shell
-- `make yii <args>` Run Yii console command in container
-- `make composer <args>` Run Composer in container
-- `make cs-fix` Run PHP CS Fixer
-- `make rector <args>` Run Rector
-- `make psalm <args>` Run Psalm
-
-## Testing
-
-Run all tests:
-
-```bash
-composer test
-```
-
-Run a specific suite or test file:
-
-```bash
-vendor/bin/codecept run Web
-vendor/bin/codecept run Web tests/Web/AboutUsCest.php
-```
-
-Run tests with Docker test environment:
-
-```bash
-make test
-make test Web
-```
-
-Coverage report (Docker test environment):
-
-```bash
-make test-coverage
-```
-
-## Quality Tools
-
-Static analysis and code quality:
-
-```bash
-vendor/bin/psalm
-vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
-vendor/bin/rector process
-vendor/bin/composer-dependency-analyser --config=composer-dependency-analyser.php
-```
-
-Or run via Make targets in Docker:
-
-```bash
-make psalm
-make cs-fix
-make rector process
-make composer-dependency-analyser
 ```
 
 ## HTTP Routes
@@ -144,8 +58,3 @@ Defined in `config/common/routes.php`:
 - `GET /business-categories` -> `business-category/list` (auth required)
 - `GET|POST /business-categories/{id}` -> `business-category/edit` (auth required)
 - `POST /business-categories/{id}/delete` -> `business-category/delete` (auth required)
-
-## Notes
-
-- Web tests use `composer serve` and expect the app at `http://127.0.0.1:8080`.
-- Runtime logs are written under `runtime/logs/`.
