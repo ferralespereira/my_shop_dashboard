@@ -83,3 +83,58 @@ body {
 .text-center {
     text-align: center;
 }
+
+/* Business category list mobile fallback. */
+@media (max-width: 768px) {
+    .responsive-table thead {
+        display: none;
+    }
+
+    .responsive-table,
+    .responsive-table tbody,
+    .responsive-table tr,
+    .responsive-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .responsive-table tr {
+        margin-bottom: 12px;
+        border: 1px solid #e6e8ec;
+        border-radius: 8px;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .responsive-table td {
+        border: 0;
+        border-bottom: 1px solid #eef1f4;
+        padding: 10px 12px;
+    }
+
+    .responsive-table td:last-child {
+        border-bottom: 0;
+    }
+
+    .responsive-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 4px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #838b99;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .responsive-table .category-actions-cell {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .responsive-table .category-actions-cell form {
+        display: inline-block !important;
+    }
+}
