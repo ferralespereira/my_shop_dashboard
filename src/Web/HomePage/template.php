@@ -10,6 +10,7 @@ use Yiisoft\View\WebView;
  * @var WebView $this
  * @var ApplicationParams $applicationParams
  * @var UrlGeneratorInterface $urlGenerator
+ * @var string|null $csrf
  */
 
 $this->setTitle($applicationParams->name);
@@ -29,6 +30,8 @@ $this->setTitle($applicationParams->name);
 
                     <!-- Login Form -->
                     <form action="<?= $urlGenerator->generate('auth/login') ?>" method="POST">
+                        <input type="hidden" name="_csrf" value="<?= $csrf ?>">
+
                         <div class="mb-3">
                             <label for="email" class="form-label fw-medium">Email</label>
                             <input
