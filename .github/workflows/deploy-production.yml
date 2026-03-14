@@ -1,0 +1,60 @@
+name: Deploy Production On Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_PORT: ${{ secrets.EC2_PORT }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      PHP_BIN: ${{ secrets.PHP_BIN }}
+      COMPOSER_BIN: ${{ secrets.COMPOSER_BIN }}
+      RESTART_COMMAND: ${{ secrets.RESTART_COMMAND }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key for EC2
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+
+      - name: Trust EC2 SSH host key
+        if: ${{ secrets.EC2_KNOWN_HOSTS != '' }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.EC2_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Validate EC2 deployment target
+        run: |
+          test -n "$EC2_HOST"
+          test -n "$EC2_USER"
+          test -n "$DEPLOY_PATH"
+          ssh -p "${EC2_PORT:-22}" "$EC2_USER@$EC2_HOST" "echo connected"
+
+      - name: Deploy application to EC2
+        run: |
+          ssh -p "${EC2_PORT:-22}" "$EC2_USER@$EC2_HOST" <<EOF
+          set -e
+          cd "$DEPLOY_PATH"
+          git fetch --all --tags
+          git checkout main
+          git reset --hard "origin/main"
+          "${COMPOSER_BIN:-composer}" install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+          "${PHP_BIN:-php}" yii migrate/up --interactive=0
+          if [ -n "${RESTART_COMMAND:-}" ]; then
+            eval "$RESTART_COMMAND"
+          fi
+          EOF
