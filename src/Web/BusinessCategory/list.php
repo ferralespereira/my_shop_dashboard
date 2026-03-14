@@ -19,7 +19,7 @@ use Yiisoft\Router\UrlGeneratorInterface;
                 <div class="card-body p-0">
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="h3 mb-0">Business Categories</h1>
+                        <h1 class="h3 mb-0">The Business Categories</h1>
                         <?= Html::a(
                             'Create Category',
                             $urlGenerator->generate('business-category/edit', ['id' => 'new']),
